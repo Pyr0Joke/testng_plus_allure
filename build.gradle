@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.3"
+    }
+}
+
+plugins {
+    id 'java'
+}
+apply plugin: 'io.qameta.allure'
+group 'test_testng'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'org.testng:testng:7.0.0-beta1'
+    compile 'io.qameta.allure:allure-testng:2.7.0'
+    compile 'ru.yandex.qatools.allure:allure-testng-adaptor:1.5.4'
+}
+
+allure {
+    version = '2.7.0'
+    autoconfigure = true
+    aspectjweaver = true
+    allureJavaVersion = '2.0-BETA10'
+}
+
+test {
+    useTestNG(){
+//        suites 'src/main/resources/testng.xml'
+    }
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
